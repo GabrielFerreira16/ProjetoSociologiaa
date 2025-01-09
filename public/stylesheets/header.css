@@ -1,0 +1,68 @@
+.header {
+    position: static; /* Cabeçalho fixo no topo, sem efeito de fixação */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cabeçalho ocupa toda a largura */
+    background-color: #50A166; /* Cor de fundo do cabeçalho */
+    padding: 20px 0; /* Padding superior e inferior */
+    z-index: 1000; /* Coloca o cabeçalho acima dos outros elementos */
+    display: flex; /* Utiliza Flexbox para o alinhamento */
+    justify-content: center; /* Centraliza horizontalmente o conteúdo */
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
+}
+header .logo{
+    background-color: #ffffff;
+    position: absolute;
+    left: 0;
+    width: 240px;  /* Ajuste o tamanho da imagem conforme necessário */
+    height: auto;  /* Mantém a proporção da imagem */
+    /* Espaço entre a imagem e o menu */
+}
+
+/* Estilo da navegação */
+.nav {
+    font-family: "SUSE", sans-serif;
+    display: flex; /* Alinha os links de navegação em linha */
+    gap: 20px; /* Espaçamento entre os links */
+    justify-content: center; /* Garante que os links fiquem centralizados dentro da navegação */
+    align-items: center; /* Garante que os links fiquem alinhados verticalmente */
+    width: 100%; /* Faz a navegação ocupar toda a largura disponível no cabeçalho */
+}
+
+/* Estilo para os links */
+.nav a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.3s ease;
+    font-size: 2.0rem;
+    padding: 8px 16px;
+    letter-spacing: 1px;
+    margin: 0; /* Remover margens adicionais, pois o gap já faz a distribuição */
+}
+
+
+/* Efeito de hover nos links */
+.nav a:hover {
+    opacity: 0.8; /* Efeito de transparência */
+    background-color: #388e3c; /* Cor de fundo do hover */
+    border-radius: 4px; /* Bordas arredondadas */
+}
+
+/*--------------------Ajustes de responsividade--------------------- */
+@media (max-width: 768px) {
+    /* Ajustes para telas pequenas */
+    .nav {
+        flex-direction: column; /* Coloca os links de navegação em coluna */
+        gap: 20px; /* Menor espaçamento entre os links */
+    }
+
+    .nav a {
+        font-size: 1rem; /* Reduz o tamanho da fonte */
+        padding: 12px 20px; /* Aumenta o espaçamento interno */
+    }
+
+    .header {
+        padding: 15px 0; /* Menos padding para caber melhor em telas pequenas */
+    }
+}
