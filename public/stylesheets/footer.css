@@ -3,6 +3,7 @@ footer {
     padding: 15px;
     margin-top: 40px;
     font-size: 0.9rem;
+    width: 100%;
     color: #777;
     background-color: rgba(28, 58, 43, 0.9); /* Light Greenish Footer with a slight transparency */
     border-radius: 8px;
@@ -11,3 +12,6 @@ footer {
 footer p {
     color: #ffffff;
 }
+
+
+  

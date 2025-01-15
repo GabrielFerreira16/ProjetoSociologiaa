@@ -17,7 +17,7 @@ header .logo{
     left: 0;
     width: 240px;  /* Ajuste o tamanho da imagem conforme necessário */
     height: auto;  /* Mantém a proporção da imagem */
-    /* Espaço entre a imagem e o menu */
+    margin: 20px;/* Espaço entre a imagem e o menu */
 }
 
 /* Estilo da navegação */
