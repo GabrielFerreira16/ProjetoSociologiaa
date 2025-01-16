@@ -105,7 +105,7 @@ body {
   display: flex; /* Usa Flexbox para centralizar o conteúdo */
   justify-content: center; /* Centraliza horizontalmente o conteúdo */
   align-items: center; /* Centraliza verticalmente o conteúdo */
-  height: 77vh; /* Altura do main ocupando toda a altura da tela */
+  height: 78vh; /* Altura do main ocupando toda a altura da tela */
   text-align: center; /* Garante que a imagem fique centralizada no texto também */
   padding: 0; /* Padding para dar um pouco de espaço nas laterais */
   margin: 0;
