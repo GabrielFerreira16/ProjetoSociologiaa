@@ -1,8 +1,8 @@
 /* Configurações gerais */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: #50A166;
+  color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
   display: flex;
@@ -45,7 +45,7 @@ body {
 .question-text {
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: rgb(0, 0, 0);
 }
 
 /* Opções */
@@ -56,7 +56,7 @@ body {
 }
 
 .option-box {
-  background-color: #f9f9f9;
+  background-color: #000000;
   padding: 15px;
   border-radius: 8px;
   border: 2px solid #ddd;
@@ -72,12 +72,13 @@ body {
 
 .option-box:hover {
   background-color: #e6e6e6;
-  border-color: #333;
+  color: #000000;
+  border-color: rgb(0, 0, 0);
 }
 
 /* Botão de envio */
 .submit-btn {
-  background-color: #333;
+  background-color: rgb(0, 0, 0);
   color: white;
   border: none;
   padding: 12px 20px;

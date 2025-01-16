@@ -4,11 +4,11 @@ const Pergunta = require("../models/perguntas"); // Modelo MongoDB
 
 // Função para embaralhar um array (Fisher-Yates Shuffle)
 function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; // Troca os elementos
-  }
-  return array;
+  let shuffled = array.map(value => ({ value, sort: Math.random() })) // Adiciona um valor aleatório
+                      .sort((a, b) => a.sort - b.sort) // Ordena aleatoriamente
+                      .map(({ value }) => value); // Retorna o array ordenado
+
+  return shuffled;
 }
 
 /* GET página inicial do quiz */
@@ -28,16 +28,23 @@ router.get("/", async function (req, res, next) {
     // Embaralha as perguntas
     questions = shuffleArray(questions);
 
+    // Embaralha alternativas da primeira pergunta
+    let shuffledOptions = shuffleArray([...questions[0].alternativas]);
+
+    // Encontra a posição da resposta correta após embaralhar
+    let correctIndex = shuffledOptions.indexOf(questions[0].respostaCorreta);
+
     // Renderiza a primeira pergunta embaralhada
     res.render("quiz", {
       title: "Quiz de Sociologia",
       question: {
         question: questions[0].pergunta,
-        options: shuffleArray(questions[0].alternativas), // Embaralha as alternativas também
+        options: shuffledOptions, // Alternativas embaralhadas
       },
       currentIndex: 0,
       score: 0,
       feedback: null,
+      correctIndex, // Passa a posição da resposta correta
     });
   } catch (error) {
     res.status(500).send("Erro ao carregar perguntas: " + error.message);
@@ -49,16 +56,22 @@ router.post("/submit", async function (req, res, next) {
   try {
     const questions = await Pergunta.find();
     const currentIndex = parseInt(req.body.index);
-    const userAnswer = req.body.answer;
+    const userAnswerIndex = parseInt(req.body.answerIndex); // Agora recebemos a posição da resposta selecionada
     let score = parseInt(req.body.score) || 0;
 
+    let shuffledOptions = shuffleArray([...questions[currentIndex].alternativas]); // Mantemos a ordem embaralhada
+    let correctAnswer = questions[currentIndex].respostaCorreta;
+    let correctIndex = shuffledOptions.indexOf(correctAnswer); // Posição da resposta correta
+
+    console.log(correctIndex);
+    
     let feedback, feedbackClass;
-    if (userAnswer === questions[currentIndex].respostaCorreta) {
+    if (userAnswerIndex === correctIndex) {
       feedback = "Correto! Boa resposta!";
       feedbackClass = "correct-feedback";
       score++;
     } else {
-      feedback = `Incorreto! A resposta certa é: "${questions[currentIndex].respostaCorreta}".`;
+      feedback = `Incorreto! A resposta certa é: "${correctAnswer}".`;
       feedbackClass = "incorrect-feedback";
     }
 
@@ -66,12 +79,13 @@ router.post("/submit", async function (req, res, next) {
       title: "Quiz de Sociologia",
       question: {
         question: questions[currentIndex].pergunta,
-        options: shuffleArray(questions[currentIndex].alternativas),
+        options: shuffledOptions,
       },
       currentIndex,
       score,
       feedback,
-      feedbackClass, // Passa a classe para a view
+      feedbackClass,
+      correctIndex,
     });
   } catch (err) {
     next(err);
@@ -86,15 +100,20 @@ router.post("/next", async function (req, res, next) {
     const score = parseInt(req.body.score);
 
     if (currentIndex + 1 < questions.length) {
+      // Embaralha as alternativas da próxima pergunta
+      let shuffledOptions = shuffleArray([...questions[currentIndex + 1].alternativas]);
+      let correctIndex = shuffledOptions.indexOf(questions[currentIndex + 1].respostaCorreta);
+
       res.render("quiz", {
         title: "Quiz de Sociologia",
         question: {
           question: questions[currentIndex + 1].pergunta,
-          options: shuffleArray(questions[currentIndex + 1].alternativas),
+          options: shuffledOptions,
         },
         currentIndex: currentIndex + 1,
         score,
         feedback: null,
+        correctIndex,
       });
     } else {
       res.render("quiz", {
