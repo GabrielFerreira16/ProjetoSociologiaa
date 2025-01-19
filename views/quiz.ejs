@@ -5,15 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/stylesheets/quiz.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/favicon.png" type="image/png">
 </head>
+
 <%- include('./partials/header') %>
 
-<div class="main-content">
+<body>
   <div class="quiz-container">
-    
     <% if (feedback) { %>
       <div class="feedback-box <%= feedbackClass %>">
         <p><%= feedback %></p>
@@ -23,27 +21,23 @@
           <button class="next-btn" type="submit">Próxima Pergunta</button>
         </form>
       </div>
-    
     <% } else if (question) { %>
       <form id="quizForm" method="POST" action="/quiz/submit">
         <div class="question-box">
           <p class="question-text"><%= question.question %></p>
         </div>
-
         <div class="options-box">
-          <% for (let i = 0; i < question.options.length; i++) { %>
+          <% question.options.forEach(function(option) { %>
             <label class="option-box">
-              <input type="radio" name="answerIndex" value="<%= i %>" required>
-              <span><%= question.options[i] %></span>
+              <input type="radio" name="answer" value="<%= option %>">
+              <span><%= option %></span>
             </label>
-          <% } %>
+          <% }); %>
         </div>
-
         <input type="hidden" name="index" value="<%= currentIndex %>">
         <input type="hidden" name="score" value="<%= score %>">
         <button class="submit-btn" type="submit">Enviar Resposta</button>
       </form>
-
     <% } else { %>
       <div class="result-box">
         <h2>Quiz Finalizado!</h2>
@@ -51,10 +45,7 @@
         <a href="/quiz" class="restart-btn">Refazer o Quiz</a>
       </div>
     <% } %>
-
   </div>
-</div>
-
 </body>
 <%- include('./partials/footer') %>
 </html>

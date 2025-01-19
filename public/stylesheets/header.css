@@ -1,5 +1,6 @@
+
 .header {
-    position: static; /* Cabeçalho fixo no topo, sem efeito de fixação */
+    position:  static; /* Cabeçalho fixo no topo, sem efeito de fixação */
     top: 0;
     left: 0;
     width: 100%; /* Cabeçalho ocupa toda a largura */
